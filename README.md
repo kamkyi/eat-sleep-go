@@ -1,70 +1,122 @@
-# Getting Started with Create React App
+# Eat, Sleep, Go
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A responsive car-rental and travel-lifestyle website for **Eat, Sleep, Go**. The site presents the fleet, lets visitors filter and review vehicles, estimates rental costs, and records demo booking and contact form submissions in the browser.
 
-## Available Scripts
+## Technology
 
-In the project directory, you can run:
+- Create React App / React 19
+- React Router 6 with `HashRouter`
+- Lucide React icons
+- CSS custom properties and mobile-first responsive layouts
+- GitHub Pages deployment with `gh-pages`
+- Node.js 22 and npm
 
-### `npm start`
+## Requirements
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [NVM](https://github.com/nvm-sh/nvm) (recommended)
+- Node.js 22
+- npm
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The included `.nvmrc` selects the correct Node.js major version.
 
-### `npm test`
+## Install and run locally
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+nvm install 22
+nvm use 22
+npm install
+npm start
+```
 
-### `npm run build`
+Create React App opens the development site at `http://localhost:3000`. Changes reload automatically.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Production build
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+nvm use 22
+npm run build
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The optimized static site is written to `build/`.
 
-### `npm run eject`
+## Deploy to GitHub Pages
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Create a GitHub repository. The default configuration assumes its name is `eat-sleep-go`.
+2. In `package.json`, replace `YOUR_GITHUB_USERNAME` in the `homepage` value:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```json
+   "homepage": "https://YOUR_GITHUB_USERNAME.github.io/eat-sleep-go"
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   If your repository has a different name, replace the final `eat-sleep-go` segment too.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Commit the project and connect it to the GitHub repository:
 
-## Learn More
+   ```bash
+   git remote add origin https://github.com/YOUR_GITHUB_USERNAME/eat-sleep-go.git
+   git branch -M main
+   git push -u origin main
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. Deploy:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```bash
+   npm run deploy
+   ```
 
-### Code Splitting
+The `predeploy` script creates a production build, and `deploy` publishes `build/` to the `gh-pages` branch. In the repository’s **Settings → Pages**, select **Deploy from a branch**, then choose the `gh-pages` branch and `/ (root)`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The application uses `HashRouter`, so pages such as `#/cars` and `#/booking` continue to work when opened or refreshed on GitHub Pages. The logo uses Create React App’s `PUBLIC_URL`, and remote travel images use full HTTPS URLs, so asset paths remain valid below the repository subpath.
 
-### Analyzing the Bundle Size
+## Project structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```text
+public/
+  eat-sleep-go-logo.jpg   Official brand logo
+src/
+  components/             Shared layout, cards, filters, and forms
+  config/site.js          Contact details and primary navigation
+  data/                   Vehicle and editorial mock data
+  pages/                  Route-level pages
+  App.js                  Lazy routes and application shell
+  App.css                 Component and responsive styles
+  index.css               Design tokens and global styles
+```
 
-### Making a Progressive Web App
+## Updating content
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Replace the logo
 
-### Advanced Configuration
+Replace `public/eat-sleep-go-logo.jpg` with the new logo using the **same filename**. Keep a square canvas and preserve the artwork’s aspect ratio. The header, footer, manifest, and browser icon will update together.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Update vehicles
 
-### Deployment
+Edit `src/data/cars.js`. Every vehicle needs a unique, stable `id`; that ID becomes part of its details-page URL. Pricing is stored in Thai baht as `pricePerDay` and `pricePerMonth`. Set `featured: true` to show a car on the home page and `available: false` to prevent new booking requests for it.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Update contact information
 
-### `npm run build` fails to minify
+Edit `src/config/site.js`. Phone, email, social links, service area, business hours, and navigation are kept there to avoid repeating information across pages.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Update destinations and testimonials
+
+Edit `src/data/content.js`.
+
+## Forms and current limitations
+
+- The booking and contact forms are front-end demos only.
+- No information is sent, permanently stored, or connected to a payment provider.
+- The booking total is an estimate based on the selected car’s daily rate and calendar dates; delivery, deposit, fuel, and optional extras are excluded.
+- Before taking real bookings, connect the forms to a secure backend or trusted form provider and add an appropriate privacy policy.
+- The included phone number, email, social profiles, and LINE account are sample business values and should be replaced before public launch.
+
+## Useful commands
+
+```bash
+npm start          # Start development mode
+npm test           # Run the test suite
+npm run build      # Create the production build
+npm run deploy     # Build and publish to GitHub Pages
+```
+
+Do not place API keys or other secrets in React source files or `REACT_APP_*` environment variables; frontend values are visible to site visitors.
+# eat-sleep-go
