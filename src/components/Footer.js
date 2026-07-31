@@ -21,6 +21,7 @@ export default function Footer() {
           <ul className="footer-links">
             {navigation.map((item) => <li key={item.id}><Link to={item.to}>{t(item.labelKey)}</Link></li>)}
             <li><Link to="/booking">{t('common.bookACar')}</Link></li>
+            <li><Link to="/partner">{t('nav.partner')}</Link></li>
           </ul>
         </div>
         <div>

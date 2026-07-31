@@ -18,5 +18,6 @@ export const navigation = [
   { id: 'home', labelKey: 'nav.home', to: '/' },
   { id: 'cars', labelKey: 'nav.cars', to: '/cars' },
   { id: 'about', labelKey: 'nav.about', to: '/about' },
+  { id: 'shop', labelKey: 'nav.shop', to: '/shop' },
   { id: 'contact', labelKey: 'nav.contact', to: '/contact' },
 ];
