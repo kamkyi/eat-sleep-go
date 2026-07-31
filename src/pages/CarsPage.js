@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 import CarCard from '../components/CarCard';
 import CarFilters from '../components/CarFilters';
-import PageHero from '../components/PageHero';
 import { EmptyState, SecondaryButton } from '../components/UI';
 import { cars } from '../data/cars';
 import { useI18n } from '../i18n';
@@ -20,7 +19,6 @@ export default function CarsPage() {
     return true;
   }), [filters]);
   const update = ({ target }) => setFilters((current) => ({ ...current, [target.name]: target.value }));
-  const [asideLine1, asideLine2] = t('cars.heroAside').split('\n');
 
-  return <><PageHero eyebrow={t('cars.heroEyebrow')} title={t('cars.heroTitle')} description={t('cars.heroDescription')} aside={<><strong>{cars.filter((car) => car.available).length}</strong><span>{asideLine1}<br />{asideLine2}</span></>} /><section className="section fleet-section"><div className="container"><CarFilters filters={filters} onChange={update} onReset={() => setFilters(defaults)} resultCount={filteredCars.length} />{filteredCars.length ? <div className="car-grid car-grid--fleet">{filteredCars.map((car) => <CarCard key={car.id} car={car} />)}</div> : <EmptyState title={t('cars.emptyTitle')} message={t('cars.emptyMessage')} action={<SecondaryButton onClick={() => setFilters(defaults)}>{t('cars.emptyAction')}</SecondaryButton>} />}</div></section></>;
+  return <section className="section fleet-section"><div className="container"><CarFilters filters={filters} onChange={update} onReset={() => setFilters(defaults)} resultCount={filteredCars.length} />{filteredCars.length ? <div className="car-grid car-grid--fleet">{filteredCars.map((car) => <CarCard key={car.id} car={car} />)}</div> : <EmptyState title={t('cars.emptyTitle')} message={t('cars.emptyMessage')} action={<SecondaryButton onClick={() => setFilters(defaults)}>{t('cars.emptyAction')}</SecondaryButton>} />}</div></section>;
 }
