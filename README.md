@@ -8,7 +8,7 @@ A responsive car-rental and travel-lifestyle website for **Eat, Sleep, Go**. The
 - React Router 6 with `HashRouter`
 - Lucide React icons
 - CSS custom properties and mobile-first responsive layouts
-- GitHub Pages deployment with `gh-pages`
+- GitHub Pages deployment from the `main` branch
 - Node.js 22 and npm
 
 ## Requirements
@@ -58,13 +58,15 @@ The optimized static site is written to `build/`.
    git push -u origin main
    ```
 
-4. Deploy:
+4. Create the GitHub Pages build:
 
    ```bash
    npm run deploy
    ```
 
-The `predeploy` script creates a production build, and `deploy` publishes `build/` to the `gh-pages` branch. In the repository’s **Settings → Pages**, select **Deploy from a branch**, then choose the `gh-pages` branch and `/ (root)`.
+   The optimized site is written to `docs/`. Commit that directory and push it to `main`.
+
+5. In the repository’s **Settings → Pages**, select **Deploy from a branch**, then choose the `main` branch and `/docs`.
 
 The application uses `HashRouter`, so pages such as `#/cars` and `#/booking` continue to work when opened or refreshed on GitHub Pages. The logo uses Create React App’s `PUBLIC_URL`, and remote travel images use full HTTPS URLs, so asset paths remain valid below the repository subpath.
 
@@ -115,7 +117,7 @@ Edit `src/data/content.js`.
 npm start          # Start development mode
 npm test           # Run the test suite
 npm run build      # Create the production build
-npm run deploy     # Build and publish to GitHub Pages
+npm run deploy     # Create the GitHub Pages build in docs/
 ```
 
 Do not place API keys or other secrets in React source files or `REACT_APP_*` environment variables; frontend values are visible to site visitors.

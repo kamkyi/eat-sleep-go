@@ -1,0 +1,16 @@
+{
+  "short_name": "Eat, Sleep, Go",
+  "name": "Eat, Sleep, Go Car Rental",
+  "icons": [
+    {
+      "src": "eat-sleep-go-logo.jpg",
+      "sizes": "1024x1024",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#2B2B2B",
+  "background_color": "#E9E2D3"
+}

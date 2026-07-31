@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/eat-sleep-go/static/css/main.434363dc.css",
+    "main.js": "/eat-sleep-go/static/js/main.6104e946.js",
+    "static/js/690.190bf0f3.chunk.js": "/eat-sleep-go/static/js/690.190bf0f3.chunk.js",
+    "static/js/305.1ced22c4.chunk.js": "/eat-sleep-go/static/js/305.1ced22c4.chunk.js",
+    "static/js/888.bc1b9820.chunk.js": "/eat-sleep-go/static/js/888.bc1b9820.chunk.js",
+    "static/js/662.00c3d71f.chunk.js": "/eat-sleep-go/static/js/662.00c3d71f.chunk.js",
+    "static/js/560.c0f5d4f3.chunk.js": "/eat-sleep-go/static/js/560.c0f5d4f3.chunk.js",
+    "static/js/541.737483f8.chunk.js": "/eat-sleep-go/static/js/541.737483f8.chunk.js",
+    "static/js/557.8d7cfee1.chunk.js": "/eat-sleep-go/static/js/557.8d7cfee1.chunk.js",
+    "index.html": "/eat-sleep-go/index.html",
+    "main.434363dc.css.map": "/eat-sleep-go/static/css/main.434363dc.css.map",
+    "main.6104e946.js.map": "/eat-sleep-go/static/js/main.6104e946.js.map",
+    "690.190bf0f3.chunk.js.map": "/eat-sleep-go/static/js/690.190bf0f3.chunk.js.map",
+    "305.1ced22c4.chunk.js.map": "/eat-sleep-go/static/js/305.1ced22c4.chunk.js.map",
+    "888.bc1b9820.chunk.js.map": "/eat-sleep-go/static/js/888.bc1b9820.chunk.js.map",
+    "662.00c3d71f.chunk.js.map": "/eat-sleep-go/static/js/662.00c3d71f.chunk.js.map",
+    "560.c0f5d4f3.chunk.js.map": "/eat-sleep-go/static/js/560.c0f5d4f3.chunk.js.map",
+    "541.737483f8.chunk.js.map": "/eat-sleep-go/static/js/541.737483f8.chunk.js.map",
+    "557.8d7cfee1.chunk.js.map": "/eat-sleep-go/static/js/557.8d7cfee1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.434363dc.css",
+    "static/js/main.6104e946.js"
+  ]
+}
