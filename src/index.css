@@ -1,13 +1,96 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-primary: #2b2b2b;
+  --color-secondary: #7fa6a2;
+  --color-secondary-dark: #557d79;
+  --color-accent: #c98763;
+  --color-accent-dark: #9e6040;
+  --color-background: #e9e2d3;
+  --color-surface: #d8cfc0;
+  --color-white: #fffdf8;
+  --color-muted: #68645d;
+  --font-display: 'Manrope', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-myanmar: 'Noto Sans Myanmar', 'Padauk', 'Myanmar Text', sans-serif;
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4.5rem;
+  --space-8: 7rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1.25rem;
+  --radius-lg: 2rem;
+  --radius-pill: 999px;
+  --shadow-sm: 0 8px 24px rgba(43, 43, 43, 0.08);
+  --shadow-md: 0 18px 50px rgba(43, 43, 43, 0.12);
+  --container: 1200px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--color-primary); background: var(--color-background); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body.menu-open { overflow: hidden; }
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { color: inherit; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.12; letter-spacing: -0.035em; }
+h1 { font-size: clamp(3rem, 10vw, 6.7rem); }
+h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h3 { font-size: 1.25rem; }
+em { color: var(--color-accent); font-family: Georgia, serif; font-weight: 400; }
+::selection { color: var(--color-white); background: var(--color-accent); }
+:focus-visible { outline: 3px solid var(--color-secondary-dark); outline-offset: 3px; }
+.container { width: min(calc(100% - 2rem), var(--container)); margin-inline: auto; }
+.section { padding: var(--space-7) 0; }
+.section--surface { background: rgba(216, 207, 192, 0.55); }
+.skip-link { position: fixed; z-index: 1000; top: 1rem; left: 1rem; padding: 0.75rem 1rem; background: var(--color-primary); color: white; border-radius: var(--radius-sm); transform: translateY(-150%); }
+.skip-link:focus { transform: none; }
+.eyebrow { display: flex; align-items: center; gap: 0.45rem; color: var(--color-secondary-dark); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+.section-heading { max-width: 650px; margin-bottom: 2rem; }
+.section-heading h2 { margin-bottom: 0.9rem; }
+.section-heading__description { max-width: 600px; margin-bottom: 0; color: var(--color-muted); font-size: 1.05rem; }
+.section-heading--center { margin-inline: auto; text-align: center; }
+.section-heading--center .eyebrow { justify-content: center; }
+.section-heading--center .section-heading__description { margin-inline: auto; }
+.section-top { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+.section-top .section-heading { margin-bottom: 0; }
+
+.button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 0.55rem; padding: 0.78rem 1.25rem; border: 1px solid transparent; border-radius: var(--radius-pill); font-weight: 700; line-height: 1; cursor: pointer; transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease; }
+.button:hover { transform: translateY(-2px); }
+.button--primary { color: var(--color-white); background: var(--color-accent); box-shadow: 0 8px 20px rgba(158, 96, 64, 0.22); }
+.button--primary:hover { background: var(--color-accent-dark); }
+.button--secondary { color: var(--color-primary); background: transparent; border-color: rgba(43, 43, 43, 0.28); }
+.button--secondary:hover { background: var(--color-white); border-color: var(--color-primary); }
+.button--wide { width: 100%; margin-top: 0.75rem; }
+.button.is-disabled { opacity: 0.5; pointer-events: none; }
+.text-link { display: inline-flex; width: fit-content; align-items: center; gap: 0.4rem; font-weight: 700; border-bottom: 1px solid var(--color-primary); }
+.text-link:hover svg { transform: translateX(3px); }
+.text-link svg { transition: transform 180ms ease; }
+
+@media (min-width: 720px) {
+  .container { width: min(calc(100% - 3rem), var(--container)); }
+  .section { padding: var(--space-8) 0; }
+  .section-top { flex-direction: row; align-items: end; justify-content: space-between; }
+}
+
+/* Burmese typography: Myanmar glyphs are taller and stack diacritics, so they need
+   more line-height, no letter-spacing, and slightly smaller display sizes. */
+html[lang="my"] body { font-family: var(--font-myanmar); line-height: 1.85; }
+html[lang="my"] h1, html[lang="my"] h2, html[lang="my"] h3 { font-family: var(--font-myanmar); letter-spacing: 0; line-height: 1.45; }
+html[lang="my"] h1 { font-size: clamp(2rem, 6.4vw, 4.1rem); }
+html[lang="my"] h2 { font-size: clamp(1.55rem, 3.6vw, 2.5rem); }
+html[lang="my"] h3 { font-size: 1.15rem; }
+html[lang="my"] em { font-family: var(--font-myanmar); font-style: normal; font-weight: 600; }
+html[lang="my"] .eyebrow { letter-spacing: 0.02em; text-transform: none; font-size: 0.82rem; line-height: 1.6; }
+html[lang="my"] .button { line-height: 1.5; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
