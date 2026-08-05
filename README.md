@@ -1,6 +1,6 @@
 # Eat, Sleep, Go
 
-A responsive car-rental and travel-lifestyle website for **Eat, Sleep, Go**. The site presents the fleet, lets visitors filter and review vehicles, estimates rental costs, and records demo booking and contact form submissions in the browser.
+A responsive car-rental and travel-lifestyle website for **Eat, Sleep, Go**. The site presents the fleet, provides Supabase customer authentication and booking management, and includes a role-protected admin booking dashboard.
 
 ## Technology
 
@@ -36,10 +36,59 @@ Copy `.env.example` to `.env.local` and replace the placeholders with the projec
 
 ```env
 REACT_APP_SUPABASE_URL=https://your-project-id.supabase.co
-REACT_APP_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+REACT_APP_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
 The reusable client is exported from `src/lib/supabase.js`. Both variables are required whenever that module is imported. Only use a Supabase publishable key in the React application. Never put a secret key, service-role key, database password, PostgreSQL connection string, or JWT signing secret in a `REACT_APP_*` variable because Create React App embeds those values in the public browser bundle.
+
+The real local values belong in `.env.local`, which is ignored by Git. The committed `.env.example` contains placeholders only. Missing configuration is shown as a clear in-app error and in the development console.
+
+### Supabase Auth URL settings
+
+In **Supabase Dashboard → Authentication → URL Configuration**, set:
+
+- **Site URL:** `https://kamkyi.github.io/eat-sleep-go/`
+- **Redirect URLs:**
+  - `https://kamkyi.github.io/eat-sleep-go/**`
+  - `http://localhost:3000/**`
+
+The application uses the PKCE auth flow so confirmation links can return through the GitHub Pages repository path without conflicting with `HashRouter` routes.
+
+### Database migrations
+
+The committed migrations in `supabase/migrations/` are deployed by the configured Supabase GitHub integration for repository `kamkyi/eat-sleep-go`, working directory `.`, from the production branch `main`. Production deployment must remain enabled. Do not run migrations from React or GitHub Pages. The schema uses Row Level Security for every profile and booking operation.
+
+### One-time admin setup
+
+Manually create `admin@gmail.com` in **Supabase Dashboard → Authentication → Users**. Do not create or store its password in this repository. After the Auth user and automatically generated profile exist, run this command once in the Supabase SQL editor:
+
+```sql
+update public.profiles
+set role = 'admin',
+    updated_at = now()
+where id = (
+  select id
+  from auth.users
+  where email = 'admin@gmail.com'
+);
+```
+
+Never run this query from browser code. If the user predates the profile trigger and has no profile row, use this insert-or-update alternative in the SQL editor:
+
+```sql
+insert into public.profiles (id, full_name, email, phone, role)
+select id,
+       coalesce(raw_user_meta_data ->> 'full_name', 'Administrator'),
+       coalesce(email, ''),
+       coalesce(raw_user_meta_data ->> 'phone', ''),
+       'admin'
+from auth.users
+where email = 'admin@gmail.com'
+on conflict (id) do update
+set email = excluded.email,
+    role = 'admin',
+    updated_at = now();
+```
 
 ## Production build
 
@@ -99,7 +148,12 @@ src/
   config/site.js          Contact details and primary navigation
   data/                   Vehicle and editorial mock data
   lib/supabase.js         Validated reusable Supabase browser client
+  lib/bookingService.js   Customer and admin booking queries
+  context/AuthContext.js  Session restoration, profile, and role state
   pages/                  Route-level pages
+supabase/
+  config.toml             Local Supabase CLI configuration
+  migrations/             Production database schema and RLS policies
   App.js                  Lazy routes and application shell
   App.css                 Component and responsive styles
   index.css               Design tokens and global styles
@@ -123,11 +177,12 @@ Edit `src/config/site.js`. Phone, email, social links, service area, business ho
 
 Edit `src/data/content.js`.
 
-## Forms and current limitations
+## Booking behavior and current limitations
 
-- The booking and contact forms are front-end demos only.
-- No Supabase tables or access policies are currently used by the application. Define the required tables and enable Row Level Security with operation-specific policies before connecting these forms.
-- No information is sent, permanently stored, or connected to a payment provider.
+- Booking requests are stored in Supabase and connected to the authenticated profile that created them.
+- Customers can see only their own bookings and can cancel only pending requests. Administrators are authorized through `profiles.role`, never by an email check.
+- The contact and partner forms remain front-end demos.
+- No payment is collected or connected to a payment provider.
 - The booking total is an estimate based on the selected car’s daily rate and calendar dates; delivery, deposit, fuel, and optional extras are excluded.
 - Before taking real bookings, connect the forms to a secure backend or trusted form provider and add an appropriate privacy policy.
 - The included phone number, email, social profiles, and LINE account are sample business values and should be replaced before public launch.

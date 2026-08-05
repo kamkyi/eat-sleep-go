@@ -43,7 +43,9 @@ export default function DestinationSlider({ destinations, note }) {
   };
 
   useEffect(() => {
-    if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const prefersReducedMotion = typeof window.matchMedia === 'function'
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (paused || prefersReducedMotion) return undefined;
     const timer = setInterval(() => {
       const track = trackRef.current;
       if (!track || document.hidden) return;

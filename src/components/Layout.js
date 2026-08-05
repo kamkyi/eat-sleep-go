@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import { useI18n } from '../i18n';
+import { useAuth } from '../context/AuthContext';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -14,5 +15,6 @@ function ScrollToTop() {
 
 export default function Layout({ children }) {
   const { t } = useI18n();
-  return <><ScrollToTop /><a className="skip-link" href="#main-content">{t('common.skipToContent')}</a><Header /><main id="main-content">{children}</main><Footer /></>;
+  const { configurationError } = useAuth();
+  return <><ScrollToTop /><a className="skip-link" href="#main-content">{t('common.skipToContent')}</a><Header />{configurationError && <div className="configuration-banner" role="alert"><div className="container"><strong>Supabase setup required.</strong> {configurationError}</div></div>}<main id="main-content">{children}</main><Footer /></>;
 }
