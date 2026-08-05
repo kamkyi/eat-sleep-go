@@ -30,6 +30,17 @@ npm start
 
 Create React App opens the development site at `http://localhost:3000`. Changes reload automatically.
 
+## Supabase configuration
+
+Copy `.env.example` to `.env.local` and replace the placeholders with the project's Supabase URL and publishable key:
+
+```env
+REACT_APP_SUPABASE_URL=https://your-project-id.supabase.co
+REACT_APP_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+```
+
+The reusable client is exported from `src/lib/supabase.js`. Both variables are required whenever that module is imported. Only use a Supabase publishable key in the React application. Never put a secret key, service-role key, database password, PostgreSQL connection string, or JWT signing secret in a `REACT_APP_*` variable because Create React App embeds those values in the public browser bundle.
+
 ## Production build
 
 ```bash
@@ -41,8 +52,10 @@ The optimized static site is written to `build/`.
 
 ## Deploy to GitHub Pages
 
+GitHub Pages is deployed by `.github/workflows/deploy.yml` whenever `main` is updated. The workflow builds the application into `build/` and deploys that artifact with GitHub Actions.
+
 1. Create a GitHub repository. The default configuration assumes its name is `eat-sleep-go`.
-2. In `package.json`, replace `YOUR_GITHUB_USERNAME` in the `homepage` value:
+2. Set the correct GitHub Pages URL in the `homepage` field in `package.json`:
 
    ```json
    "homepage": "https://YOUR_GITHUB_USERNAME.github.io/eat-sleep-go"
@@ -50,7 +63,13 @@ The optimized static site is written to `build/`.
 
    If your repository has a different name, replace the final `eat-sleep-go` segment too.
 
-3. Commit the project and connect it to the GitHub repository:
+3. In **Settings → Secrets and variables → Actions → Variables**, create these repository variables using the Supabase project URL and publishable key:
+
+   - `REACT_APP_SUPABASE_URL`
+   - `REACT_APP_SUPABASE_PUBLISHABLE_KEY`
+
+4. In **Settings → Pages**, select **GitHub Actions** as the source.
+5. Commit the project and connect it to the GitHub repository:
 
    ```bash
    git remote add origin https://github.com/YOUR_GITHUB_USERNAME/eat-sleep-go.git
@@ -58,15 +77,15 @@ The optimized static site is written to `build/`.
    git push -u origin main
    ```
 
-4. Create the GitHub Pages build:
+6. Push `main`. The workflow builds and deploys the site automatically.
 
-   ```bash
-   npm run deploy
-   ```
+For the legacy branch-based Pages workflow, the project can instead generate a committed `docs/` directory:
 
-   The optimized site is written to `docs/`. Commit that directory and push it to `main`.
+```bash
+npm run build:pages
+```
 
-5. In the repository’s **Settings → Pages**, select **Deploy from a branch**, then choose the `main` branch and `/docs`.
+Configure `.env.local` with the two Supabase variables before running this command locally. The optimized site is written to `docs/`; if using branch-based deployment, commit that directory and configure Pages to deploy from `main` and `/docs`.
 
 The application uses `HashRouter`, so pages such as `#/cars` and `#/booking` continue to work when opened or refreshed on GitHub Pages. The logo uses Create React App’s `PUBLIC_URL`, and remote travel images use full HTTPS URLs, so asset paths remain valid below the repository subpath.
 
@@ -79,6 +98,7 @@ src/
   components/             Shared layout, cards, filters, and forms
   config/site.js          Contact details and primary navigation
   data/                   Vehicle and editorial mock data
+  lib/supabase.js         Validated reusable Supabase browser client
   pages/                  Route-level pages
   App.js                  Lazy routes and application shell
   App.css                 Component and responsive styles
@@ -106,6 +126,7 @@ Edit `src/data/content.js`.
 ## Forms and current limitations
 
 - The booking and contact forms are front-end demos only.
+- No Supabase tables or access policies are currently used by the application. Define the required tables and enable Row Level Security with operation-specific policies before connecting these forms.
 - No information is sent, permanently stored, or connected to a payment provider.
 - The booking total is an estimate based on the selected car’s daily rate and calendar dates; delivery, deposit, fuel, and optional extras are excluded.
 - Before taking real bookings, connect the forms to a secure backend or trusted form provider and add an appropriate privacy policy.
@@ -117,8 +138,9 @@ Edit `src/data/content.js`.
 npm start          # Start development mode
 npm test           # Run the test suite
 npm run build      # Create the production build
-npm run deploy     # Create the GitHub Pages build in docs/
+npm run build:pages # Create a GitHub Pages build in docs/
+npm run deploy      # Alias for npm run build:pages
 ```
 
-Do not place API keys or other secrets in React source files or `REACT_APP_*` environment variables; frontend values are visible to site visitors.
+Only the Supabase project URL and publishable key belong in the React environment. All `REACT_APP_*` values are visible to site visitors.
 # eat-sleep-go

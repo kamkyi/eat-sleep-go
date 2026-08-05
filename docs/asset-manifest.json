@@ -1,27 +1,31 @@
 {
   "files": {
-    "main.css": "/eat-sleep-go/static/css/main.12ef683f.css",
-    "main.js": "/eat-sleep-go/static/js/main.ac40eb1d.js",
-    "static/js/492.d2854991.chunk.js": "/eat-sleep-go/static/js/492.d2854991.chunk.js",
-    "static/js/305.53956f69.chunk.js": "/eat-sleep-go/static/js/305.53956f69.chunk.js",
-    "static/js/888.bc1b9820.chunk.js": "/eat-sleep-go/static/js/888.bc1b9820.chunk.js",
-    "static/js/662.1a475cc8.chunk.js": "/eat-sleep-go/static/js/662.1a475cc8.chunk.js",
-    "static/js/443.973fe696.chunk.js": "/eat-sleep-go/static/js/443.973fe696.chunk.js",
-    "static/js/541.94a2225b.chunk.js": "/eat-sleep-go/static/js/541.94a2225b.chunk.js",
-    "static/js/557.8d7cfee1.chunk.js": "/eat-sleep-go/static/js/557.8d7cfee1.chunk.js",
+    "main.css": "/eat-sleep-go/static/css/main.a626de3b.css",
+    "main.js": "/eat-sleep-go/static/js/main.933729a6.js",
+    "static/js/137.815db143.chunk.js": "/eat-sleep-go/static/js/137.815db143.chunk.js",
+    "static/js/305.f1549166.chunk.js": "/eat-sleep-go/static/js/305.f1549166.chunk.js",
+    "static/js/888.f4491635.chunk.js": "/eat-sleep-go/static/js/888.f4491635.chunk.js",
+    "static/js/662.68e52b18.chunk.js": "/eat-sleep-go/static/js/662.68e52b18.chunk.js",
+    "static/js/443.c349f3fe.chunk.js": "/eat-sleep-go/static/js/443.c349f3fe.chunk.js",
+    "static/js/525.49739784.chunk.js": "/eat-sleep-go/static/js/525.49739784.chunk.js",
+    "static/js/393.8c7e54f8.chunk.js": "/eat-sleep-go/static/js/393.8c7e54f8.chunk.js",
+    "static/js/541.0d8fb962.chunk.js": "/eat-sleep-go/static/js/541.0d8fb962.chunk.js",
+    "static/js/557.cdb226bd.chunk.js": "/eat-sleep-go/static/js/557.cdb226bd.chunk.js",
     "index.html": "/eat-sleep-go/index.html",
-    "main.12ef683f.css.map": "/eat-sleep-go/static/css/main.12ef683f.css.map",
-    "main.ac40eb1d.js.map": "/eat-sleep-go/static/js/main.ac40eb1d.js.map",
-    "492.d2854991.chunk.js.map": "/eat-sleep-go/static/js/492.d2854991.chunk.js.map",
-    "305.53956f69.chunk.js.map": "/eat-sleep-go/static/js/305.53956f69.chunk.js.map",
-    "888.bc1b9820.chunk.js.map": "/eat-sleep-go/static/js/888.bc1b9820.chunk.js.map",
-    "662.1a475cc8.chunk.js.map": "/eat-sleep-go/static/js/662.1a475cc8.chunk.js.map",
-    "443.973fe696.chunk.js.map": "/eat-sleep-go/static/js/443.973fe696.chunk.js.map",
-    "541.94a2225b.chunk.js.map": "/eat-sleep-go/static/js/541.94a2225b.chunk.js.map",
-    "557.8d7cfee1.chunk.js.map": "/eat-sleep-go/static/js/557.8d7cfee1.chunk.js.map"
+    "main.a626de3b.css.map": "/eat-sleep-go/static/css/main.a626de3b.css.map",
+    "main.933729a6.js.map": "/eat-sleep-go/static/js/main.933729a6.js.map",
+    "137.815db143.chunk.js.map": "/eat-sleep-go/static/js/137.815db143.chunk.js.map",
+    "305.f1549166.chunk.js.map": "/eat-sleep-go/static/js/305.f1549166.chunk.js.map",
+    "888.f4491635.chunk.js.map": "/eat-sleep-go/static/js/888.f4491635.chunk.js.map",
+    "662.68e52b18.chunk.js.map": "/eat-sleep-go/static/js/662.68e52b18.chunk.js.map",
+    "443.c349f3fe.chunk.js.map": "/eat-sleep-go/static/js/443.c349f3fe.chunk.js.map",
+    "525.49739784.chunk.js.map": "/eat-sleep-go/static/js/525.49739784.chunk.js.map",
+    "393.8c7e54f8.chunk.js.map": "/eat-sleep-go/static/js/393.8c7e54f8.chunk.js.map",
+    "541.0d8fb962.chunk.js.map": "/eat-sleep-go/static/js/541.0d8fb962.chunk.js.map",
+    "557.cdb226bd.chunk.js.map": "/eat-sleep-go/static/js/557.cdb226bd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.12ef683f.css",
-    "static/js/main.ac40eb1d.js"
+    "static/css/main.a626de3b.css",
+    "static/js/main.933729a6.js"
   ]
 }
