@@ -1,15 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700&display=swap');
 
 :root {
-  --color-primary: #2b2b2b;
-  --color-secondary: #7fa6a2;
-  --color-secondary-dark: #557d79;
-  --color-accent: #c98763;
-  --color-accent-dark: #9e6040;
-  --color-background: #e9e2d3;
-  --color-surface: #d8cfc0;
-  --color-white: #fffdf8;
-  --color-muted: #68645d;
+  /* Neutrals carry the layout; colour is reserved for actions and status. */
+  --color-primary: #17181a;
+  --color-muted: #6b6f76;
+  --color-faint: #9a9ea5;
+  --color-background: #ffffff;
+  --color-surface: #f6f6f4;
+  --color-surface-strong: #edecE8;
+  --color-line: #e4e3df;
+  --color-line-strong: #d2d1cc;
+  --color-white: #ffffff;
+  --color-ink: #17181a;
+  --color-accent: #cf5f3f;
+  --color-accent-dark: #ad4a2d;
+  --color-accent-soft: #fbeee9;
+  --color-secondary: #2f6f68;
+  --color-secondary-dark: #23554f;
+  --color-secondary-soft: #e7f0ee;
   --font-display: 'Manrope', sans-serif;
   --font-body: 'DM Sans', sans-serif;
   --font-myanmar: 'Noto Sans Myanmar', 'Padauk', 'Myanmar Text', sans-serif;
@@ -19,27 +27,29 @@
   --space-4: 1.5rem;
   --space-5: 2rem;
   --space-6: 3rem;
-  --space-7: 4.5rem;
-  --space-8: 7rem;
-  --radius-sm: 0.75rem;
-  --radius-md: 1.25rem;
-  --radius-lg: 2rem;
+  --space-7: 4rem;
+  --space-8: 5.5rem;
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.7rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.35rem;
   --radius-pill: 999px;
-  --shadow-sm: 0 8px 24px rgba(43, 43, 43, 0.08);
-  --shadow-md: 0 18px 50px rgba(43, 43, 43, 0.12);
-  --container: 1200px;
-  --header-height: 77px;
-  --section-y: clamp(2.5rem, 5vw, 3.75rem);
+  --shadow-sm: 0 1px 2px rgba(23, 24, 26, 0.05), 0 6px 16px rgba(23, 24, 26, 0.05);
+  --shadow-md: 0 10px 30px rgba(23, 24, 26, 0.09);
+  --shadow-lg: 0 18px 48px rgba(23, 24, 26, 0.14);
+  --container: 1180px;
+  --header-height: 66px;
+  --section-y: clamp(2.5rem, 5vw, 4rem);
   --sticky-top: calc(var(--header-height) + 1rem);
 }
 
 @media (min-width: 900px) {
-  :root { --header-height: 89px; }
+  :root { --header-height: 74px; }
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; color: var(--color-primary); background: var(--color-background); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body { margin: 0; color: var(--color-primary); background: var(--color-background); font-family: var(--font-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
 body.menu-open { overflow: hidden; }
 button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -47,40 +57,42 @@ button { color: inherit; }
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 h1, h2, h3, p { margin-top: 0; }
-h1, h2, h3 { font-family: var(--font-display); line-height: 1.12; letter-spacing: -0.035em; }
-h1 { font-size: clamp(3rem, 10vw, 6.7rem); }
-h2 { font-size: clamp(2rem, 5vw, 3.5rem); }
-h3 { font-size: 1.25rem; }
-em { color: var(--color-accent); font-family: Georgia, serif; font-weight: 400; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.18; letter-spacing: -0.021em; }
+h1 { font-size: clamp(1.95rem, 4.2vw, 3rem); }
+h2 { font-size: clamp(1.45rem, 2.8vw, 2.05rem); }
+h3 { font-size: 1.0625rem; }
+/* Accent word inside a heading — a colour shift, not a change of voice. */
+em { color: var(--color-accent); font-style: normal; }
 ::selection { color: var(--color-white); background: var(--color-accent); }
-:focus-visible { outline: 3px solid var(--color-secondary-dark); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
 .container { width: min(calc(100% - 2rem), var(--container)); margin-inline: auto; }
 .section { padding: var(--section-y) 0; }
-main > .section:first-child { padding-top: clamp(1.5rem, 3.5vw, 2.25rem); }
-.section--surface { background: rgba(216, 207, 192, 0.55); }
+main > .section:first-child { padding-top: clamp(1.75rem, 3.5vw, 2.5rem); }
+.section--surface { background: var(--color-surface); }
 .skip-link { position: fixed; z-index: 1000; top: 1rem; left: 1rem; padding: 0.75rem 1rem; background: var(--color-primary); color: white; border-radius: var(--radius-sm); transform: translateY(-150%); }
 .skip-link:focus { transform: none; }
-.eyebrow { display: flex; align-items: center; gap: 0.45rem; color: var(--color-secondary-dark); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
-.section-heading { max-width: 650px; margin-bottom: clamp(1.4rem, 3vw, 2rem); }
-.section-heading h2 { margin-bottom: 0.9rem; }
-.section-heading__description { max-width: 600px; margin-bottom: 0; color: var(--color-muted); font-size: 1.05rem; }
+.eyebrow { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem; color: var(--color-muted); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; }
+.section-heading { max-width: 620px; margin-bottom: clamp(1.25rem, 2.6vw, 1.75rem); }
+.section-heading h2 { margin-bottom: 0.5rem; }
+.section-heading__description { max-width: 560px; margin-bottom: 0; color: var(--color-muted); font-size: 0.98rem; }
 .section-heading--center { margin-inline: auto; text-align: center; }
 .section-heading--center .eyebrow { justify-content: center; }
 .section-heading--center .section-heading__description { margin-inline: auto; }
-.section-top { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: clamp(1.4rem, 3vw, 2rem); }
+.section-top { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: clamp(1.25rem, 2.6vw, 1.75rem); }
 .section-top .section-heading { margin-bottom: 0; }
 
-.button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 0.55rem; padding: 0.78rem 1.25rem; border: 1px solid transparent; border-radius: var(--radius-pill); font-weight: 700; line-height: 1; cursor: pointer; transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease; }
-.button:hover { transform: translateY(-2px); }
-.button--primary { color: var(--color-white); background: var(--color-accent); box-shadow: 0 8px 20px rgba(158, 96, 64, 0.22); }
+.button { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.7rem 1.15rem; border: 1px solid transparent; border-radius: var(--radius-sm); font-weight: 700; font-size: 0.94rem; line-height: 1.2; cursor: pointer; transition: background 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease; }
+.button--primary { color: var(--color-white); background: var(--color-accent); }
 .button--primary:hover { background: var(--color-accent-dark); }
-.button--secondary { color: var(--color-primary); background: transparent; border-color: rgba(43, 43, 43, 0.28); }
-.button--secondary:hover { background: var(--color-white); border-color: var(--color-primary); }
+.button--secondary { color: var(--color-primary); background: var(--color-white); border-color: var(--color-line-strong); }
+.button--secondary:hover { border-color: var(--color-primary); background: var(--color-surface); }
 .button--wide { width: 100%; margin-top: 0.75rem; }
-.button.is-disabled { opacity: 0.5; pointer-events: none; }
-.text-link { display: inline-flex; width: fit-content; align-items: center; gap: 0.4rem; font-weight: 700; border-bottom: 1px solid var(--color-primary); }
+.button.is-disabled { opacity: 0.45; pointer-events: none; }
+.text-link { display: inline-flex; width: fit-content; align-items: center; gap: 0.35rem; color: var(--color-primary); font-size: 0.94rem; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.text-link:hover { color: var(--color-accent-dark); }
 .text-link:hover svg { transform: translateX(3px); }
-.text-link svg { transition: transform 180ms ease; }
+.text-link svg { transition: transform 160ms ease; }
 
 @media (min-width: 720px) {
   .container { width: min(calc(100% - 3rem), var(--container)); }
@@ -90,13 +102,13 @@ main > .section:first-child { padding-top: clamp(1.5rem, 3.5vw, 2.25rem); }
 
 /* Burmese typography: Myanmar glyphs are taller and stack diacritics, so they need
    more line-height, no letter-spacing, and slightly smaller display sizes. */
-html[lang="my"] body { font-family: var(--font-myanmar); line-height: 1.85; }
+html[lang="my"] body { font-family: var(--font-myanmar); line-height: 1.8; }
 html[lang="my"] h1, html[lang="my"] h2, html[lang="my"] h3 { font-family: var(--font-myanmar); letter-spacing: 0; line-height: 1.45; }
-html[lang="my"] h1 { font-size: clamp(2rem, 6.4vw, 4.1rem); }
-html[lang="my"] h2 { font-size: clamp(1.55rem, 3.6vw, 2.5rem); }
-html[lang="my"] h3 { font-size: 1.15rem; }
-html[lang="my"] em { font-family: var(--font-myanmar); font-style: normal; font-weight: 600; }
-html[lang="my"] .eyebrow { letter-spacing: 0.02em; text-transform: none; font-size: 0.82rem; line-height: 1.6; }
+html[lang="my"] h1 { font-size: clamp(1.6rem, 3.6vw, 2.5rem); }
+html[lang="my"] h2 { font-size: clamp(1.25rem, 2.4vw, 1.8rem); }
+html[lang="my"] h3 { font-size: 1rem; }
+html[lang="my"] em { font-family: var(--font-myanmar); font-weight: 600; }
+html[lang="my"] .eyebrow { letter-spacing: 0.02em; text-transform: none; font-size: 0.78rem; line-height: 1.6; }
 html[lang="my"] .button { line-height: 1.5; }
 
 @media (prefers-reduced-motion: reduce) {

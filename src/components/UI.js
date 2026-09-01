@@ -13,13 +13,13 @@ export function SectionHeading({ eyebrow, title, description, align = 'left' }) 
 
 export function PrimaryButton({ to, children, className = '', ...props }) {
   const classes = `button button--primary ${className}`.trim();
-  if (to) return <Link className={classes} to={to}>{children}</Link>;
+  if (to) return <Link className={classes} to={to} {...props}>{children}</Link>;
   return <button className={classes} {...props}>{children}</button>;
 }
 
 export function SecondaryButton({ to, children, className = '', ...props }) {
   const classes = `button button--secondary ${className}`.trim();
-  if (to) return <Link className={classes} to={to}>{children}</Link>;
+  if (to) return <Link className={classes} to={to} {...props}>{children}</Link>;
   return <button className={classes} {...props}>{children}</button>;
 }
 

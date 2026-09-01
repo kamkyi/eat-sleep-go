@@ -42,14 +42,16 @@ export default function Header() {
           ))}
         </nav>
 
-        <LanguageSwitch />
-        <div className="header-account">
-          {user ? <><Link to={isAdmin ? '/admin/dashboard' : '/bookings'}>{isAdmin ? 'Admin dashboard' : 'My bookings'}</Link><button type="button" onClick={signOut} aria-label="Sign out"><LogOut size={17} aria-hidden="true" /></button></> : <Link to="/login">Login</Link>}
+        <div className="header-actions">
+          <LanguageSwitch />
+          <div className="header-account">
+            {user ? <><Link to={isAdmin ? '/admin/dashboard' : '/bookings'}>{isAdmin ? 'Admin dashboard' : 'My bookings'}</Link><button type="button" onClick={signOut} aria-label="Sign out"><LogOut size={17} aria-hidden="true" /></button></> : <Link to="/login">Login</Link>}
+          </div>
+          <Link className="button button--primary header-cta" to="/booking">{t('common.bookACar')}</Link>
+          <button className="menu-toggle" type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? t('nav.menuClose') : t('nav.menuOpen')}>
+            {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </button>
         </div>
-        <Link className="button button--primary header-cta" to="/booking">{t('common.bookACar')}</Link>
-        <button className="menu-toggle" type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? t('nav.menuClose') : t('nav.menuOpen')}>
-          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
-        </button>
       </div>
 
       <div className={`mobile-menu ${open ? 'is-open' : ''}`} id="mobile-menu">

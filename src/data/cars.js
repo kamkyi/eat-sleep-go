@@ -1,25 +1,6 @@
+const photo = (file) => `${process.env.PUBLIC_URL}/cars/${file}`;
+
 export const cars = [
-  {
-    id: 'mazda-2-2019',
-    brand: 'Mazda',
-    model: '2 Sedan',
-    year: 2019,
-    type: 'Sedan',
-    transmission: 'Automatic',
-    seats: 5,
-    fuel: 'Petrol',
-    pricePerDay: 950,
-    pricePerMonth: 18500,
-    available: true,
-    featured: true,
-    location: 'Bangkok',
-    image: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=85',
-    gallery: [
-      'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1600&q=85',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=85',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1600&q=85',
-    ],
-  },
   {
     id: 'honda-city-2013',
     brand: 'Honda',
@@ -33,57 +14,50 @@ export const cars = [
     pricePerMonth: 15000,
     available: true,
     featured: true,
-    location: 'Chiang Mai',
-    image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=85',
+    location: 'Bangkok',
+    image: photo('honda-city-front.jpg'),
     gallery: [
-      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1600&q=85',
-      'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1600&q=85',
-      'https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1600&q=85',
+      photo('honda-city-front.jpg'),
+      photo('honda-city-left.jpg'),
+      photo('honda-city-rear-side.jpg'),
+      photo('honda-city-back.jpg'),
     ],
   },
   {
-    id: 'toyota-yaris-2021',
-    brand: 'Toyota',
-    model: 'Yaris Ativ',
-    year: 2021,
-    type: 'Compact',
+    id: 'mazda-2-2019',
+    brand: 'Mazda',
+    model: '2 Sedan',
+    year: 2019,
+    type: 'Sedan',
     transmission: 'Automatic',
     seats: 5,
     fuel: 'Petrol',
-    pricePerDay: 1100,
-    pricePerMonth: 21000,
-    available: true,
-    featured: true,
-    location: 'Phuket',
-    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=85',
-    gallery: [
-      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1600&q=85',
-      'https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1600&q=85',
-      'https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=1600&q=85',
-    ],
-  },
-  {
-    id: 'toyota-fortuner-2020',
-    brand: 'Toyota',
-    model: 'Fortuner',
-    year: 2020,
-    type: 'SUV',
-    transmission: 'Automatic',
-    seats: 7,
-    fuel: 'Diesel',
-    pricePerDay: 2200,
-    pricePerMonth: 42000,
+    pricePerDay: 950,
+    pricePerMonth: 18500,
     available: false,
-    featured: false,
+    featured: true,
     location: 'Bangkok',
-    image: 'https://images.unsplash.com/photo-1511527844068-006b95d162c2?auto=format&fit=crop&w=1200&q=85',
+    image: photo('mazda-2-front.jpg'),
     gallery: [
-      'https://images.unsplash.com/photo-1511527844068-006b95d162c2?auto=format&fit=crop&w=1600&q=85',
-      'https://images.unsplash.com/photo-1539799139339-50c5fe1e2b1b?auto=format&fit=crop&w=1600&q=85',
-      'https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?auto=format&fit=crop&w=1600&q=85',
+      photo('mazda-2-front.jpg'),
+      photo('mazda-2-right.jpg'),
+      photo('mazda-2-left.jpg'),
+      photo('mazda-2-back.jpg'),
     ],
   },
 ];
+
+// Bangkok is the only city we hand over cars in today. The rest stay visible in
+// every city menu — but disabled — so travellers can see where we go next.
+export const serviceCities = [
+  { id: 'Bangkok', available: true },
+  { id: 'Chiang Mai', available: false },
+  { id: 'Phuket', available: false },
+];
+
+// Derived from the fleet so a filter can never offer an option with nothing behind it.
+export const carTypes = [...new Set(cars.map((car) => car.type))];
+export const lowestPrice = (list) => list.reduce((low, car) => Math.min(low, car.pricePerDay), Infinity);
 
 // Labels for these live in src/i18n/translations.js under carData.
 export const includedServices = ['insurance', 'maintenance', 'roadside', 'clean'];

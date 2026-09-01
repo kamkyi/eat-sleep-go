@@ -1,19 +1,21 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CalendarDays, CheckCircle2, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { cars } from '../data/cars';
+import { cars, serviceCities } from '../data/cars';
 import { useAuth } from '../context/AuthContext';
 import { createBooking } from '../lib/bookingService';
 import { PrimaryButton, SecondaryButton } from './UI';
 import { useI18n } from '../i18n';
 
-const initialForm = { name: '', email: '', phone: '', carId: '', pickupDate: '', pickupTime: '09:00', returnDate: '', returnTime: '09:00', pickupLocation: '', returnLocation: '', message: '', terms: false };
-const locations = ['Bangkok', 'Chiang Mai', 'Phuket'];
+// Only cities we actually operate in can be chosen; the rest stay listed but disabled.
+const defaultCity = serviceCities.find((city) => city.available)?.id || '';
+const initialForm = { name: '', email: '', phone: '', carId: '', pickupDate: '', pickupTime: '09:00', returnDate: '', returnTime: '09:00', pickupLocation: defaultCity, returnLocation: defaultCity, message: '', terms: false };
 
-export default function BookingForm({ initialCarId = '' }) {
+export default function BookingForm({ initialCarId = '', initialValues = {} }) {
   const { t } = useI18n();
   const { user, profile } = useAuth();
-  const [form, setForm] = useState({ ...initialForm, carId: initialCarId });
+  // Dates and city picked in the hero search arrive here as query params.
+  const [form, setForm] = useState({ ...initialForm, carId: initialCarId, ...initialValues });
   const [errors, setErrors] = useState({});
   const [submittedBooking, setSubmittedBooking] = useState(null);
   const [submitting, setSubmitting] = useState(false);
@@ -103,13 +105,13 @@ export default function BookingForm({ initialCarId = '' }) {
       <p>{t('booking.successText')}</p>
       <div className="confirmation-card__summary"><span>{selectedCar?.brand} {selectedCar?.model}</span><strong>{dayLabel(estimate.days)} · ฿{estimate.total.toLocaleString()}</strong></div>
       <p className="booking-reference">{t('booking.reference')}: <strong>{submittedBooking.id}</strong></p>
-      <div className="confirmation-card__actions"><Link className="button button--primary" to="/bookings">{t('booking.viewBookings')}</Link><SecondaryButton type="button" onClick={() => { setSubmittedBooking(null); setForm({ ...initialForm, name: profile?.full_name || '', email: profile?.email || user?.email || '', phone: profile?.phone || '', carId: initialCarId }); }}>{t('booking.successAgain')}</SecondaryButton></div>
+      <div className="confirmation-card__actions"><Link className="button button--primary" to="/bookings">{t('booking.viewBookings')}</Link><SecondaryButton type="button" onClick={() => { setSubmittedBooking(null); setForm({ ...initialForm, ...initialValues, name: profile?.full_name || '', email: profile?.email || user?.email || '', phone: profile?.phone || '', carId: initialCarId }); }}>{t('booking.successAgain')}</SecondaryButton></div>
     </div>
   );
 
   const today = new Date().toISOString().split('T')[0];
   const fieldError = (name) => errors[name] ? <span className="field-error" id={`${name}-error`}>{errors[name]}</span> : null;
-  const locationOptions = <>{locations.map((location) => <option key={location} value={location}>{t(`carData.location.${location}`)}</option>)}<option value="other">{t('booking.locationOther')}</option></>;
+  const locationOptions = <>{serviceCities.map(({ id, available }) => <option key={id} value={id} disabled={!available}>{t(`carData.location.${id}`)}{available ? '' : ` · ${t('search.soon')}`}</option>)}<option value="other">{t('booking.locationOther')}</option></>;
 
   return (
     <form className="booking-form" onSubmit={submit} noValidate>
@@ -125,8 +127,8 @@ export default function BookingForm({ initialCarId = '' }) {
         <label>{t('booking.pickupTime')}<input name="pickupTime" type="time" value={form.pickupTime} onChange={update} aria-invalid={Boolean(errors.pickupTime)} aria-describedby={errors.pickupTime ? 'pickupTime-error' : undefined} />{fieldError('pickupTime')}</label>
         <label>{t('booking.returnDate')}<input name="returnDate" type="date" min={form.pickupDate || today} value={form.returnDate} onChange={update} aria-invalid={Boolean(errors.returnDate)} aria-describedby={errors.returnDate ? 'returnDate-error' : undefined} />{fieldError('returnDate')}</label>
         <label>{t('booking.returnTime')}<input name="returnTime" type="time" value={form.returnTime} onChange={update} aria-invalid={Boolean(errors.returnTime)} aria-describedby={errors.returnTime ? 'returnTime-error' : undefined} />{fieldError('returnTime')}</label>
-        <label>{t('booking.pickupLocation')}<select name="pickupLocation" value={form.pickupLocation} onChange={update} aria-invalid={Boolean(errors.pickupLocation)} aria-describedby={errors.pickupLocation ? 'pickupLocation-error' : undefined}><option value="">{t('booking.locationPlaceholder')}</option>{locationOptions}</select>{fieldError('pickupLocation')}</label>
-        <label>{t('booking.returnLocation')}<select name="returnLocation" value={form.returnLocation} onChange={update} aria-invalid={Boolean(errors.returnLocation)} aria-describedby={errors.returnLocation ? 'returnLocation-error' : undefined}><option value="">{t('booking.locationPlaceholder')}</option>{locationOptions}</select>{fieldError('returnLocation')}</label>
+        <label>{t('booking.pickupLocation')}<select name="pickupLocation" value={form.pickupLocation} onChange={update} aria-invalid={Boolean(errors.pickupLocation)} aria-describedby={errors.pickupLocation ? 'pickupLocation-error' : undefined}>{locationOptions}</select>{fieldError('pickupLocation')}</label>
+        <label>{t('booking.returnLocation')}<select name="returnLocation" value={form.returnLocation} onChange={update} aria-invalid={Boolean(errors.returnLocation)} aria-describedby={errors.returnLocation ? 'returnLocation-error' : undefined}>{locationOptions}</select>{fieldError('returnLocation')}</label>
         <label className="span-2">{t('booking.message')}<textarea name="message" value={form.message} onChange={update} rows="4" placeholder={t('booking.messagePlaceholder')} /></label>
       </div></div>
       <div className="estimate-card"><div><CalendarDays aria-hidden="true" /><span><small>{t('booking.estimateDuration')}</small><strong>{estimate.days ? dayLabel(estimate.days) : '—'}</strong></span></div><div><small>{t('booking.estimateTotal')}</small><strong>{estimate.total ? `฿${estimate.total.toLocaleString()}` : '—'}</strong></div></div>
