@@ -11,11 +11,21 @@ import { useI18n } from '../i18n';
 const defaultCity = serviceCities.find((city) => city.available)?.id || '';
 const initialForm = { name: '', email: '', phone: '', carId: '', pickupDate: '', pickupTime: '09:00', returnDate: '', returnTime: '09:00', pickupLocation: defaultCity, returnLocation: defaultCity, message: '', terms: false };
 
+function buildInitialForm(initialCarId, initialValues) {
+  // Missing query parameters are passed as empty strings. Do not let them
+  // replace meaningful defaults such as the first available service city.
+  const suppliedValues = Object.fromEntries(
+    Object.entries(initialValues).filter(([, value]) => value !== '' && value !== null && value !== undefined)
+  );
+
+  return { ...initialForm, carId: initialCarId, ...suppliedValues };
+}
+
 export default function BookingForm({ initialCarId = '', initialValues = {} }) {
   const { t } = useI18n();
   const { user, profile } = useAuth();
   // Dates and city picked in the hero search arrive here as query params.
-  const [form, setForm] = useState({ ...initialForm, carId: initialCarId, ...initialValues });
+  const [form, setForm] = useState(() => buildInitialForm(initialCarId, initialValues));
   const [errors, setErrors] = useState({});
   const [submittedBooking, setSubmittedBooking] = useState(null);
   const [submitting, setSubmitting] = useState(false);
@@ -105,7 +115,7 @@ export default function BookingForm({ initialCarId = '', initialValues = {} }) {
       <p>{t('booking.successText')}</p>
       <div className="confirmation-card__summary"><span>{selectedCar?.brand} {selectedCar?.model}</span><strong>{dayLabel(estimate.days)} · ฿{estimate.total.toLocaleString()}</strong></div>
       <p className="booking-reference">{t('booking.reference')}: <strong>{submittedBooking.id}</strong></p>
-      <div className="confirmation-card__actions"><Link className="button button--primary" to="/bookings">{t('booking.viewBookings')}</Link><SecondaryButton type="button" onClick={() => { setSubmittedBooking(null); setForm({ ...initialForm, ...initialValues, name: profile?.full_name || '', email: profile?.email || user?.email || '', phone: profile?.phone || '', carId: initialCarId }); }}>{t('booking.successAgain')}</SecondaryButton></div>
+      <div className="confirmation-card__actions"><Link className="button button--primary" to="/bookings">{t('booking.viewBookings')}</Link><SecondaryButton type="button" onClick={() => { setSubmittedBooking(null); setForm({ ...buildInitialForm(initialCarId, initialValues), name: profile?.full_name || '', email: profile?.email || user?.email || '', phone: profile?.phone || '' }); }}>{t('booking.successAgain')}</SecondaryButton></div>
     </div>
   );
 
