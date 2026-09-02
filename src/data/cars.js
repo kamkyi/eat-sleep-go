@@ -19,8 +19,11 @@ export const cars = [
     gallery: [
       photo('honda-city-front.jpg'),
       photo('honda-city-left.jpg'),
-      photo('honda-city-rear-side.jpg'),
+      photo('honda-city-right.jpg'),
       photo('honda-city-back.jpg'),
+      photo('honda-city-interior-front.jpg'),
+      photo('honda-city-interior-cabin.jpg'),
+      photo('honda-city-interior-rear.jpg'),
     ],
   },
   {
@@ -40,9 +43,12 @@ export const cars = [
     image: photo('mazda-2-front.jpg'),
     gallery: [
       photo('mazda-2-front.jpg'),
-      photo('mazda-2-right.jpg'),
       photo('mazda-2-left.jpg'),
+      photo('mazda-2-right.jpg'),
       photo('mazda-2-back.jpg'),
+      photo('mazda-2-interior-front.jpg'),
+      photo('mazda-2-interior-cabin.jpg'),
+      photo('mazda-2-interior-rear.jpg'),
     ],
   },
 ];
